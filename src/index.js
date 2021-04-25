@@ -300,7 +300,8 @@ export class DownloaderHelper extends EventEmitter {
      * @memberof DownloaderHelper
      */
     getTotalSize() {
-        const options = this.__getOptions('HEAD', this.url, this.__headers);
+        const options = Object.assign({}, this.__options, this.__getOptions('HEAD', this.url, this.__headers));
+        
         return new Promise((resolve, reject) => {
             const request = this.__protocol.request(options, response => {
                 if (this.__isRequireRedirect(response)) {
